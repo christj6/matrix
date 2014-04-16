@@ -13,10 +13,10 @@ public class Driver
         
         System.out.println(mat);
         
-        System.out.println("det: " + mat.experimentalFindDet());
+        System.out.println("det: " + mat.experimentalFindDet(mat));
         System.out.println("det: " + mat.findDet());
 
-	//mat.rowReduce();
-	System.out.println(mat);
+		//System.out.println(mat.rowReduce(mat));
+		System.out.println(mat);
     }
 }
