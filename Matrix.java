@@ -197,43 +197,27 @@ public class Matrix
      * 
      * @return 
      */
-    public void rowReduce()
-    {
-        /*
-        for (int i = 1; i < rows; i++)
+    public Matrix rowReduce(Matrix input)
+    {   
+    	Matrix output = input;
+    	
+        for (int current = 0; current < output.getRowDim(); current++)
         {
-            if (matrix[i][0] != 0)
+            for (int i = current+1; i < output.getRowDim(); i++)
             {
-                double scalar = (-1*matrix[i][0])/(matrix[0][0]);
-                rowOp1(0, i, scalar);
-            }
-        }
-        
-        for (int i = 2; i < rows; i++)
-        {
-            if (matrix[i][1] != 0)
-            {
-                double scalar = (-1*matrix[i][1])/(matrix[1][1]);
-                rowOp1(1, i, scalar);
-            }
-        }
-        */
-        
-        for (int current = 0; current < rows; current++)
-        {
-            for (int i = current+1; i < rows; i++)
-            {
-                if (matrix[i][current] != 0 && matrix[current][current] != 0)
+                if (output.getValue(i, current) != 0 && output.getValue(current, current) != 0)
                 {
-                    double scalar = (-1*matrix[i][current])/(matrix[current][current]);
-                    rowOp1(current, i, scalar);
+                    double scalar = (-1 * output.getValue(i, current))/(output.getValue(current, current));
+                    output.rowOp1(current, i, scalar);
                 }
-                else if (matrix[current][current] == 0)
+                else if (output.getValue(current, current) == 0)
                 {
-                    rowOp2(current, i%rows); /** Swaps rows so that the i==j entry is nonzero. */
+                    output.rowOp2(current, i%rows); /** Swaps rows so that the i==j entry is nonzero. */
                 }
             }
         }
+        
+        return output;
         
     }
     
@@ -243,27 +227,12 @@ public class Matrix
      * by -1 to the power of however many swaps (rowop2) were done.
      * @return 
      */
-    public double experimentalFindDet()
+    public double experimentalFindDet(Matrix input)
     {
         double det = 1;
         int swaps = 0;
         
-        for (int current = 0; current < rows; current++)
-        {
-            for (int i = current+1; i < rows; i++)
-            {
-                if (matrix[i][current] != 0 && matrix[current][current] != 0)
-                {
-                    double scalar = (-1*matrix[i][current])/(matrix[current][current]);
-                    rowOp1(current, i, scalar);
-                }
-                else if (matrix[current][current] == 0)
-                {
-                    rowOp2(current, i%rows);
-                    swaps++;
-                }
-            }
-        }
+        Matrix reduced = input.rowReduce(input);
         
         for (int i = 0; i < rows; i++)
         {
@@ -271,7 +240,7 @@ public class Matrix
             {
                 if (i == j)
                 {
-                    det *= matrix[i][j];
+                    det *= reduced.getValue(i, j);
                 }
             }
         }
