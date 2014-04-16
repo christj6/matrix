@@ -10,13 +10,13 @@ public class Matrix
 {
     private int rows;
     private int columns;
-    private float[][] matrix;
+    private double[][] matrix;
     
     public Matrix(int row, int col)
     {
         rows = row;
         columns = col;
-        matrix = new float[rows][columns];
+        matrix = new double[rows][columns];
     }
     
     /**
@@ -29,7 +29,7 @@ public class Matrix
     {
         rows = row;
         columns = col;
-        matrix = new float[rows][columns];
+        matrix = new double[rows][columns];
         
         Scanner scan = new Scanner(values);
         scan.useDelimiter(" ");
@@ -37,12 +37,12 @@ public class Matrix
         {
             for (int j = 0; j < columns; j++)
             {
-                matrix[i][j] = scan.nextFloat();
+                matrix[i][j] = scan.nextDouble();
             }
         }
     }
     
-    public float getValue(int row, int col)
+    public double getValue(int row, int col)
     {
         return matrix[row][col];
     }
@@ -63,9 +63,9 @@ public class Matrix
      * @param secondRow
      * @param scalar 
      */
-    public void rowOp1(int firstRow, int secondRow, float scalar)
+    public void rowOp1(int firstRow, int secondRow, double scalar)
     {
-        float[] temp = new float[rows];
+        double[] temp = new double[rows];
         for (int i = 0; i < rows; i++)
         {
             temp[i] = scalar*matrix[firstRow][i];
@@ -80,7 +80,7 @@ public class Matrix
      */
     public void rowOp2(int firstRow, int secondRow)
     {
-        float[] temp = new float[rows];
+        double[] temp = new double[rows];
         for (int i = 0; i < rows; i++)
         {
             temp[i] = matrix[firstRow][i];
@@ -94,7 +94,7 @@ public class Matrix
      * @param row
      * @param scalar 
      */
-    public void rowOp3(int row, float scalar)
+    public void rowOp3(int row, double scalar)
     {
         for (int i = 0; i < rows; i++)
         {
@@ -145,7 +145,7 @@ public class Matrix
      * @param scalar
      * @return 
      */
-    public Matrix scalarMult(float scalar)
+    public Matrix scalarMult(double scalar)
     {
         String values = "";
         for (int i = 0; i < rows; i++)
@@ -178,7 +178,7 @@ public class Matrix
             {
                 for (int j = 0; j < getColumnDim(); j++)
                 {
-                    float entry = 0;
+                    double entry = 0;
                     
                     for (int k = 0; k < getColumnDim(); k++)
                     {
@@ -204,7 +204,7 @@ public class Matrix
         {
             if (matrix[i][0] != 0)
             {
-                float scalar = (-1*matrix[i][0])/(matrix[0][0]);
+                double scalar = (-1*matrix[i][0])/(matrix[0][0]);
                 rowOp1(0, i, scalar);
             }
         }
@@ -213,7 +213,7 @@ public class Matrix
         {
             if (matrix[i][1] != 0)
             {
-                float scalar = (-1*matrix[i][1])/(matrix[1][1]);
+                double scalar = (-1*matrix[i][1])/(matrix[1][1]);
                 rowOp1(1, i, scalar);
             }
         }
@@ -225,7 +225,7 @@ public class Matrix
             {
                 if (matrix[i][current] != 0 && matrix[current][current] != 0)
                 {
-                    float scalar = (-1*matrix[i][current])/(matrix[current][current]);
+                    double scalar = (-1*matrix[i][current])/(matrix[current][current]);
                     rowOp1(current, i, scalar);
                 }
                 else if (matrix[current][current] == 0)
@@ -243,9 +243,9 @@ public class Matrix
      * by -1 to the power of however many swaps (rowop2) were done.
      * @return 
      */
-    public float experimentalFindDet()
+    public double experimentalFindDet()
     {
-        float det = 1;
+        double det = 1;
         int swaps = 0;
         
         for (int current = 0; current < rows; current++)
@@ -254,7 +254,7 @@ public class Matrix
             {
                 if (matrix[i][current] != 0 && matrix[current][current] != 0)
                 {
-                    float scalar = (-1*matrix[i][current])/(matrix[current][current]);
+                    double scalar = (-1*matrix[i][current])/(matrix[current][current]);
                     rowOp1(current, i, scalar);
                 }
                 else if (matrix[current][current] == 0)
@@ -287,7 +287,7 @@ public class Matrix
      * than 8x8 is ill-advised.
      * @return 
      */
-    public float findDet()
+    public double findDet()
     {
         if (rows != columns)
         {
@@ -301,7 +301,7 @@ public class Matrix
         }
         else
         {
-            float det = 0;
+            double det = 0;
             if (rows < 2 && columns < 2)
             {
                 det = matrix[0][0];
@@ -347,7 +347,7 @@ public class Matrix
         return sub;
     }
     
-    public Matrix identity(int dimension, float entry)
+    public Matrix identity(int dimension, double entry)
     {
         /**
          * Creates nxn identity matrix
