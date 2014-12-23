@@ -41,12 +41,30 @@ public class Matrix
             }
         }
     }
-    
+     public Matrix(int rowAndCol String values)
+    {
+        rows = rowAndCol;
+        columns = rowAndCol;
+        matrix = new double[rows][columns];
+        
+        Scanner scan = new Scanner(values);
+        scan.useDelimiter(" ");
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                matrix[i][j] = scan.nextDouble();
+            }
+        }
+    }
     public double getValue(int row, int col)
     {
         return matrix[row][col];
     }
-    
+    public double getValue(int rowAndCol)
+    {
+        return matrix[rowAndCol][rowAndCol];
+    }
     public int getRowDim()
     {
         return rows;
