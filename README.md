@@ -1,4 +1,10 @@
-matrix
+Functions on Matrix 
+
 ======
 
-Finds determinants of matrices using row reduction and cofactor expansion
+Contains a library of functions on Matrices.
+
+======
+
+
+There is a Javadoc included that provides information on all the functions the library (parameters, uses, etc).
